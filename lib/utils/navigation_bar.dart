@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web_ui_task/side_menu_tabs/archive.dart';
 import 'package:web_ui_task/side_menu_tabs/deleted_items.dart';
 import 'package:web_ui_task/side_menu_tabs/drafts.dart';
-import 'package:web_ui_task/side_menu_tabs/inbox.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/inbox.dart';
 import 'package:web_ui_task/side_menu_tabs/junk_mails.dart';
 import 'package:web_ui_task/side_menu_tabs/send_items.dart';
 import 'package:web_ui_task/utils/app_colors.dart';

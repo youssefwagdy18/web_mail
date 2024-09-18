@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:provider/provider.dart';
+import 'package:web_ui_task/config/index_provider.dart';
 import 'package:web_ui_task/controllers/side_controllers.dart';
 import 'package:web_ui_task/sending_email.dart';
 import 'package:web_ui_task/tool_bar_tabs/home_tab.dart';
@@ -18,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<IndexProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.primaryGreyColor,
       body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -187,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                         height: ResponsiveSize.adjustHeight(0.05, context),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const SendingEmail()));
+                           provider.changeIndex(1);
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.only(
