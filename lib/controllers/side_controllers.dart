@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:web_ui_task/utils/app_colors.dart';
@@ -134,7 +133,7 @@ class _SideControllersState extends State<SideControllers> {
                   hintStyle: const TextStyle(color: Colors.grey),
               suffixIcon: InkWell(
                   onTap: (){},
-                  child: Icon(Icons.attach_file))),
+                  child: const Icon(Icons.attach_file))),
               controller: attachController,
             ),
           ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
 import 'package:web_ui_task/config/index_provider.dart';
 import 'package:web_ui_task/controllers/side_controllers.dart';
-import 'package:web_ui_task/sending_email.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/main_tab_bar.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/text_font_widget.dart';
 import 'package:web_ui_task/tool_bar_tabs/home_tab.dart';
 import 'package:web_ui_task/utils/app_colors.dart';
 import 'package:web_ui_task/utils/navigation_bar.dart';
@@ -18,6 +20,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
+  HtmlEditorController controller =HtmlEditorController();
+  List<Widget>textBar =[const MainTabBar(),TextFontWidget()];
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<IndexProvider>(context);
@@ -158,8 +162,8 @@ class _HomePageState extends State<HomePage> {
         Container(
           color: AppColors.primaryGreyColor,
           width: ResponsiveSize.adjustWidth(0.01, context),
-          height: ResponsiveSize.adjustHeight(0.03, context),
-          child: HomeTab(),
+          height: ResponsiveSize.adjustHeight(0.04, context),
+          child: const HomeTab(),
         ),
         SizedBox(
           width: double.infinity,
@@ -179,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                     color: AppColors.whiteColor,
                   ),
                   width: double.infinity,
-                  height: ResponsiveSize.adjustHeight(0.06, context),
+                  height: ResponsiveSize.adjustHeight(0.08, context),
                   child: Row(
                     children: [
                       SizedBox(
@@ -191,6 +195,7 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                            provider.changeIndex(1);
+                           provider.changeNavIndex(0);
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.only(
@@ -257,23 +262,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
-                Container(
-                  height: ResponsiveSize.adjustHeight(0.04, context),
-                  width: ResponsiveSize.adjustWidth(0.815, context),
-                  decoration: BoxDecoration(
-                      color: AppColors.greyColor,
-                      borderRadius: BorderRadius.circular(
-                          ResponsiveSize.adjustWidth(0.1, context))),
-                )
+                textBar[provider.index]
               ],
             ),
           ),
         ),
         SizedBox(
-          height: ResponsiveSize.adjustHeight(0.05, context),
+          height: ResponsiveSize.adjustHeight(0.02, context),
         ),
         SingleChildScrollView(
           child: Column(

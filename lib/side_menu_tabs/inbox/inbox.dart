@@ -5,7 +5,6 @@ import 'package:web_ui_task/side_menu_tabs/inbox/show_inbox_body.dart';
 import 'package:web_ui_task/side_menu_tabs/inbox/show_sending_email.dart';
 import 'package:web_ui_task/utils/app_colors.dart';
 import 'package:web_ui_task/utils/responsive_size.dart';
-import 'package:web_ui_task/widgets/email_widget.dart';
 
 class Inbox extends StatefulWidget {
   const Inbox({super.key});
@@ -15,7 +14,7 @@ class Inbox extends StatefulWidget {
 }
 
 class _InboxState extends State<Inbox> {
-  List<Widget> inboxNavBarItems = [ShowInboxBody(), ShowSendingEmail()];
+  List<Widget> inboxNavBarItems = [const ShowInboxBody(), const ShowSendingEmail()];
   @override
   Widget build(BuildContext context) {
     var provider=Provider.of<IndexProvider>(context);
@@ -35,8 +34,8 @@ class _InboxState extends State<Inbox> {
             elevation: 0,
             currentIndex: provider.index,
             selectedItemColor: AppColors.darkPetrolColor,
-            unselectedItemColor: Color(0xff575757),
-            items: [
+            unselectedItemColor: const Color(0xff575757),
+            items: const [
               BottomNavigationBarItem(
                 label: 'Inbox',
                 icon: Icon(Icons.inbox),
