@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 
 class IndexProvider extends ChangeNotifier{
   int navIndex=0;
   int index =0;
   List<int> selectedTabs =[];
+  int visible =2;
+ QuillController quillController =QuillController.basic();
+  // QuillController quillControllerCc =QuillController.basic();
+  // QuillController quillControllerBcc =QuillController.basic();
+  // QuillController quillControllerSubject =QuillController.basic();
+
+
+
+  HtmlEditorController controller =HtmlEditorController();
   changeIndex(int newIndex){
     index=newIndex;
     notifyListeners();
@@ -16,7 +27,6 @@ class IndexProvider extends ChangeNotifier{
       selectedTabs.add(index);
     }
     selectedTabs.sort((a,b)=>a.compareTo(b));
-    print(selectedTabs);
     notifyListeners();
   }
 
@@ -28,4 +38,13 @@ class IndexProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
+  changeVisibilityOfNavBar(int inVisible){
+    if(visible ==2){
+      visible=inVisible;
+    }else{
+      visible=2;
+    }
+    notifyListeners();
+  }
+
 }

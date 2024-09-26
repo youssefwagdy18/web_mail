@@ -17,9 +17,7 @@ class MainTabBar extends StatelessWidget {
         child: Row(
           children: [
             TextButton(
-                onPressed: () {
-
-                },
+                onPressed: provider.selectedTabs.isEmpty ? null :()=> clickableFunction,
                 child: Row(
                   children: [
                     Icon(
@@ -36,7 +34,7 @@ class MainTabBar extends StatelessWidget {
                   ],
                 )),
             TextButton(
-                onPressed: () {},
+                onPressed: provider.selectedTabs.isEmpty ? null :()=> clickableFunction,
                 child: Row(
                   children: [
                     Icon(
@@ -53,8 +51,7 @@ class MainTabBar extends StatelessWidget {
                   ],
                 )),
             TextButton(
-              autofocus: false,
-                onPressed: () {},
+                onPressed: provider.selectedTabs.isEmpty ? null :()=> clickableFunction,
                 child: Row(
                   children: [
                     Icon(
@@ -71,7 +68,7 @@ class MainTabBar extends StatelessWidget {
                   ],
                 )),
             TextButton(
-                onPressed: () {},
+                onPressed: provider.selectedTabs.isEmpty ? null :()=> clickableFunction,
                 child: Row(
                   children: [
                     Icon(
@@ -89,5 +86,8 @@ class MainTabBar extends StatelessWidget {
                 )),
           ],
         ));
+  }
+  clickableFunction(){
+
   }
 }

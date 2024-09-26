@@ -39,17 +39,20 @@ class _NavBarState extends State<NavBar> {
       height: ResponsiveSize.adjustHeight(0.76, context),
       child: Row(
         children: [
-          Expanded(
+          Visibility(
+            visible: provider.visible==2?true:false,
             child: SideMenu(
                 style: SideMenuStyle(
+                  openSideMenuWidth: ResponsiveSize.adjustWidth(0.2, context),
                   hoverColor: const Color(0xffcfe8ed),
                   unselectedIconColor: AppColors.blackColor,
                   selectedColor: const Color(0xffcfe8ed),
-                  unselectedTitleTextStyle: const TextStyle(
+                  unselectedTitleTextStyle:  TextStyle(
+                    fontSize: ResponsiveSize.adjustTextSize(6, context),
                     color: AppColors.blackColor,
                   ),
                   selectedTitleTextStyle:
-                      const TextStyle(color: AppColors.blackColor),
+                       TextStyle(color: AppColors.blackColor,fontSize: ResponsiveSize.adjustTextSize(6, context),),
                   selectedIconColor: AppColors.blackColor,
                 ),
                 items: [
@@ -63,7 +66,7 @@ class _NavBarState extends State<NavBar> {
                               sideMenuController.changePage(provider.navIndex);
                             });
                           },
-                          icon: const Icon(Icons.inbox),
+                          icon:  Icon(Icons.inbox,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("5521",style: TextStyle(color: provider.navIndex ==0? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -76,7 +79,7 @@ class _NavBarState extends State<NavBar> {
                               provider.changeNavIndex(1);
                             });
                           },
-                          icon: const Icon(Icons.mail_lock),
+                          icon:  Icon(Icons.mail_lock,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("30",style: TextStyle(color: provider.navIndex ==1? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -90,7 +93,7 @@ class _NavBarState extends State<NavBar> {
 
                             });
                           },
-                          icon: const Icon(Icons.drafts),
+                          icon:  Icon(Icons.drafts,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("31",style: TextStyle(color: provider.navIndex ==2? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -104,7 +107,7 @@ class _NavBarState extends State<NavBar> {
 
                             });
                           },
-                          icon: const Icon(Icons.send),
+                          icon:  Icon(Icons.send,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("1",style: TextStyle(color: provider.navIndex ==3? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -118,7 +121,7 @@ class _NavBarState extends State<NavBar> {
 
                             });
                           },
-                          icon: const Icon(Icons.delete),
+                          icon:  Icon(Icons.delete,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("",style: TextStyle(color: provider.navIndex ==4? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -132,7 +135,7 @@ class _NavBarState extends State<NavBar> {
 
                             });
                           },
-                          icon: const Icon(Icons.archive),
+                          icon:  Icon(Icons.archive,size: ResponsiveSize.adjustTextSize(6, context),),
                           trailing: Padding(
                             padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
                             child: Text("",style: TextStyle(color: provider.navIndex ==5? AppColors.darkPetrolColor:Colors.blueGrey),),
@@ -145,10 +148,10 @@ class _NavBarState extends State<NavBar> {
           ),
           SizedBox(width: ResponsiveSize.adjustWidth(0.01, context),),
           Expanded(
-            flex: 4,
             child: PageView(
+              physics: const ClampingScrollPhysics(),
               controller: pageController,
-              children:  const [
+              children:   const [
                 Inbox(),
                 JunkMails(),
                 Drafts(),

@@ -18,36 +18,39 @@ class _InboxState extends State<Inbox> {
   @override
   Widget build(BuildContext context) {
     var provider=Provider.of<IndexProvider>(context);
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      body: inboxNavBarItems[provider.index],
-      bottomNavigationBar:
-      Padding(
-        padding:EdgeInsets.only(left: ResponsiveSize.adjustWidth(0.01, context),
-            right: ResponsiveSize.adjustWidth(0.3, context),
-        top: ResponsiveSize.adjustHeight(0.01, context),
-        bottom: ResponsiveSize.adjustHeight(0.01, context)),
-        child: SizedBox(
-          height: ResponsiveSize.adjustHeight(0.1, context),
-          child: BottomNavigationBar(
-            backgroundColor: AppColors.primaryGreyColor,
-            elevation: 0,
-            currentIndex: provider.index,
-            selectedItemColor: AppColors.darkPetrolColor,
-            unselectedItemColor: const Color(0xff575757),
-            items: const [
-              BottomNavigationBarItem(
-                label: 'Inbox',
-                icon: Icon(Icons.inbox),
-              ),
-              BottomNavigationBarItem(
-                label: 'Subject',
-                icon: Icon(Icons.edit),
-              )
-            ],
-            onTap: (int index) {
-              provider.changeIndex(index);
-            },
+    return GestureDetector(
+      onHorizontalDragUpdate: (updateDetails){},
+      child: Scaffold(
+        backgroundColor: AppColors.whiteColor,
+        body: inboxNavBarItems[provider.index],
+        bottomNavigationBar:
+        Padding(
+          padding:EdgeInsets.only(left: ResponsiveSize.adjustWidth(0.01, context),
+              right: ResponsiveSize.adjustWidth(0.3, context),
+          top: ResponsiveSize.adjustHeight(0.01, context),
+          bottom: ResponsiveSize.adjustHeight(0.01, context)),
+          child: SizedBox(
+            height: ResponsiveSize.adjustHeight(0.1, context),
+            child: BottomNavigationBar(
+              backgroundColor: AppColors.primaryGreyColor,
+              elevation: 0,
+              currentIndex: provider.index,
+              selectedItemColor: AppColors.darkPetrolColor,
+              unselectedItemColor: const Color(0xff575757),
+              items: const [
+                BottomNavigationBarItem(
+                  label: 'Inbox',
+                  icon: Icon(Icons.inbox),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Subject',
+                  icon: Icon(Icons.edit),
+                )
+              ],
+              onTap: (int index) {
+                provider.changeIndex(index);
+              },
+            ),
           ),
         ),
       ),

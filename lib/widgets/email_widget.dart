@@ -7,16 +7,16 @@ import '../utils/app_colors.dart';
 import '../utils/responsive_size.dart';
 
 class EmailWidget extends StatefulWidget{
-  String textInsideCircle ='';
-  int? index;
-  String emailSenderName ='';
-  String subjectText ='';
-  String receivedDate ='';
-  Function onUnReadTab;
-  Function onReadTab;
-  Function onAttachFileTab;
-  Color circleAvatarColor;
-  EmailWidget({super.key,required this.textInsideCircle,required this.emailSenderName,required this.subjectText,
+  final String textInsideCircle;
+  final int? index;
+  final String emailSenderName;
+  final String subjectText;
+  final String receivedDate;
+  final Function onUnReadTab;
+  final Function onReadTab;
+  final Function onAttachFileTab;
+  final Color circleAvatarColor;
+  const EmailWidget({super.key,required this.textInsideCircle,required this.emailSenderName,required this.subjectText,
     required this.index,
   required this.receivedDate,required this.onReadTab,required this.onUnReadTab,required this.onAttachFileTab,required this.circleAvatarColor});
 

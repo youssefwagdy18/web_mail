@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
-  HtmlEditorController controller =HtmlEditorController();
-  List<Widget>textBar =[const MainTabBar(),TextFontWidget()];
+  HtmlEditorController controller = HtmlEditorController();
+  List<Widget> textBar = [const MainTabBar(), TextFontWidget()];
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<IndexProvider>(context);
@@ -160,10 +160,25 @@ class _HomePageState extends State<HomePage> {
           height: ResponsiveSize.adjustHeight(0.01, context),
         ),
         Container(
+          padding:
+              EdgeInsets.only(left: ResponsiveSize.adjustWidth(0.01, context)),
           color: AppColors.primaryGreyColor,
           width: ResponsiveSize.adjustWidth(0.01, context),
           height: ResponsiveSize.adjustHeight(0.04, context),
-          child: const HomeTab(),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  size: ResponsiveSize.adjustTextSize(10, context),
+                ),
+                onPressed: () {
+                  provider.changeVisibilityOfNavBar(1);
+                },
+              ),
+              const Expanded(child: HomeTab()),
+            ],
+          ),
         ),
         SizedBox(
           width: double.infinity,
@@ -194,8 +209,8 @@ class _HomePageState extends State<HomePage> {
                         height: ResponsiveSize.adjustHeight(0.05, context),
                         child: ElevatedButton(
                           onPressed: () {
-                           provider.changeIndex(1);
-                           provider.changeNavIndex(0);
+                            provider.changeIndex(1);
+                            provider.changeNavIndex(0);
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.only(
@@ -204,13 +219,21 @@ class _HomePageState extends State<HomePage> {
                                   right: ResponsiveSize.adjustWidth(
                                       0.008, context)),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)),
-                                      bottomLeft: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)))),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  bottomLeft: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  bottomRight: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  topRight: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                ),
+                              ),
                               backgroundColor: AppColors.darkPetrolColor),
                           child: Row(
                             children: [
@@ -236,33 +259,32 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: ResponsiveSize.adjustWidth(0.0015, context),
-                      ),
-                      SizedBox(
-                        width: ResponsiveSize.adjustWidth(0.025, context),
-                        height: ResponsiveSize.adjustHeight(0.05, context),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(5),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)),
-                                      bottomRight: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)))),
-                              backgroundColor: AppColors.darkPetrolColor),
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColors.whiteColor,
-                            size: ResponsiveSize.adjustTextSize(10, context),
-                          ),
-                        ),
-                      ),
-
+                      // SizedBox(
+                      //   width: ResponsiveSize.adjustWidth(0.0015, context),
+                      // ),
+                      // SizedBox(
+                      //   width: ResponsiveSize.adjustWidth(0.025, context),
+                      //   height: ResponsiveSize.adjustHeight(0.05, context),
+                      //   child: ElevatedButton(
+                      //     onPressed: () {},
+                      //     style: ElevatedButton.styleFrom(
+                      //         padding: const EdgeInsets.all(5),
+                      //         shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.only(
+                      //                 topRight: Radius.circular(
+                      //                     ResponsiveSize.adjustHeight(
+                      //                         0.01, context)),
+                      //                 bottomRight: Radius.circular(
+                      //                     ResponsiveSize.adjustHeight(
+                      //                         0.01, context)))),
+                      //         backgroundColor: AppColors.darkPetrolColor),
+                      //     child: Icon(
+                      //       Icons.keyboard_arrow_down,
+                      //       color: AppColors.whiteColor,
+                      //       size: ResponsiveSize.adjustTextSize(10, context),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

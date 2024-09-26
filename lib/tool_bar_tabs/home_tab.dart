@@ -14,13 +14,14 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    // var provider = Provider.of<IndexProvider>(context);
     return Scaffold(
         backgroundColor: AppColors.primaryGreyColor,
       body: SizedBox(
         width: ResponsiveSize.adjustWidth(0.27, context),
-        child: const DefaultTabController(
+        child:  const DefaultTabController(
           initialIndex: 1,
-          length: 4,
+          length: 3,
           child: TabBar(
             unselectedLabelColor: Color(0xFF777777),
             labelColor: AppColors.blackColor,
@@ -29,9 +30,6 @@ class _HomeTabState extends State<HomeTab> {
             indicatorColor: AppColors.darkPetrolColor,
             indicatorSize: TabBarIndicatorSize.label,
             tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.menu),
-              ),
               Tab(
                 text: 'Home',
               ),
