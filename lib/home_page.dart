@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:provider/provider.dart';
+import 'package:web_ui_task/config/index_provider.dart';
 import 'package:web_ui_task/controllers/side_controllers.dart';
-import 'package:web_ui_task/sending_email.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/main_tab_bar.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/text_font_widget.dart';
 import 'package:web_ui_task/tool_bar_tabs/home_tab.dart';
 import 'package:web_ui_task/utils/app_colors.dart';
 import 'package:web_ui_task/utils/navigation_bar.dart';
@@ -16,8 +20,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
+  HtmlEditorController controller = HtmlEditorController();
+  List<Widget> textBar = [const MainTabBar(), TextFontWidget()];
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<IndexProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.primaryGreyColor,
       body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -153,10 +160,25 @@ class _HomePageState extends State<HomePage> {
           height: ResponsiveSize.adjustHeight(0.01, context),
         ),
         Container(
+          padding:
+              EdgeInsets.only(left: ResponsiveSize.adjustWidth(0.01, context)),
           color: AppColors.primaryGreyColor,
           width: ResponsiveSize.adjustWidth(0.01, context),
-          height: ResponsiveSize.adjustHeight(0.03, context),
-          child: HomeTab(),
+          height: ResponsiveSize.adjustHeight(0.04, context),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  size: ResponsiveSize.adjustTextSize(10, context),
+                ),
+                onPressed: () {
+                  provider.changeVisibilityOfNavBar(1);
+                },
+              ),
+              const Expanded(child: HomeTab()),
+            ],
+          ),
         ),
         SizedBox(
           width: double.infinity,
@@ -176,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                     color: AppColors.whiteColor,
                   ),
                   width: double.infinity,
-                  height: ResponsiveSize.adjustHeight(0.06, context),
+                  height: ResponsiveSize.adjustHeight(0.08, context),
                   child: Row(
                     children: [
                       SizedBox(
@@ -187,7 +209,8 @@ class _HomePageState extends State<HomePage> {
                         height: ResponsiveSize.adjustHeight(0.05, context),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const SendingEmail()));
+                            provider.changeIndex(1);
+                            provider.changeNavIndex(0);
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.only(
@@ -196,13 +219,21 @@ class _HomePageState extends State<HomePage> {
                                   right: ResponsiveSize.adjustWidth(
                                       0.008, context)),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)),
-                                      bottomLeft: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)))),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  bottomLeft: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  bottomRight: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                  topRight: Radius.circular(
+                                    ResponsiveSize.adjustHeight(0.01, context),
+                                  ),
+                                ),
+                              ),
                               backgroundColor: AppColors.darkPetrolColor),
                           child: Row(
                             children: [
@@ -228,49 +259,42 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: ResponsiveSize.adjustWidth(0.0015, context),
-                      ),
-                      SizedBox(
-                        width: ResponsiveSize.adjustWidth(0.025, context),
-                        height: ResponsiveSize.adjustHeight(0.05, context),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(5),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)),
-                                      bottomRight: Radius.circular(
-                                          ResponsiveSize.adjustHeight(
-                                              0.01, context)))),
-                              backgroundColor: AppColors.darkPetrolColor),
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColors.whiteColor,
-                            size: ResponsiveSize.adjustTextSize(10, context),
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   width: ResponsiveSize.adjustWidth(0.0015, context),
+                      // ),
+                      // SizedBox(
+                      //   width: ResponsiveSize.adjustWidth(0.025, context),
+                      //   height: ResponsiveSize.adjustHeight(0.05, context),
+                      //   child: ElevatedButton(
+                      //     onPressed: () {},
+                      //     style: ElevatedButton.styleFrom(
+                      //         padding: const EdgeInsets.all(5),
+                      //         shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.only(
+                      //                 topRight: Radius.circular(
+                      //                     ResponsiveSize.adjustHeight(
+                      //                         0.01, context)),
+                      //                 bottomRight: Radius.circular(
+                      //                     ResponsiveSize.adjustHeight(
+                      //                         0.01, context)))),
+                      //         backgroundColor: AppColors.darkPetrolColor),
+                      //     child: Icon(
+                      //       Icons.keyboard_arrow_down,
+                      //       color: AppColors.whiteColor,
+                      //       size: ResponsiveSize.adjustTextSize(10, context),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
-                Container(
-                  height: ResponsiveSize.adjustHeight(0.04, context),
-                  width: ResponsiveSize.adjustWidth(0.815, context),
-                  decoration: BoxDecoration(
-                      color: AppColors.greyColor,
-                      borderRadius: BorderRadius.circular(
-                          ResponsiveSize.adjustWidth(0.1, context))),
-                )
+                textBar[provider.index]
               ],
             ),
           ),
         ),
         SizedBox(
-          height: ResponsiveSize.adjustHeight(0.05, context),
+          height: ResponsiveSize.adjustHeight(0.02, context),
         ),
         SingleChildScrollView(
           child: Column(

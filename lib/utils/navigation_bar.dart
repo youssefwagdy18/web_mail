@@ -1,15 +1,18 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_ui_task/config/index_provider.dart';
 import 'package:web_ui_task/side_menu_tabs/archive.dart';
 import 'package:web_ui_task/side_menu_tabs/deleted_items.dart';
 import 'package:web_ui_task/side_menu_tabs/drafts.dart';
-import 'package:web_ui_task/side_menu_tabs/inbox.dart';
+import 'package:web_ui_task/side_menu_tabs/inbox/inbox.dart';
 import 'package:web_ui_task/side_menu_tabs/junk_mails.dart';
 import 'package:web_ui_task/side_menu_tabs/send_items.dart';
 import 'package:web_ui_task/utils/app_colors.dart';
 import 'package:web_ui_task/utils/responsive_size.dart';
 
 class NavBar extends StatefulWidget {
+
   const NavBar({super.key});
 
   @override
@@ -19,7 +22,6 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   PageController pageController = PageController();
   SideMenuController sideMenuController = SideMenuController();
-  int navIndex =0;
 
   @override
   void initState() {
@@ -31,22 +33,26 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<IndexProvider>(context,listen: true);
     return SizedBox(
       width: ResponsiveSize.adjustWidth(0.8, context),
       height: ResponsiveSize.adjustHeight(0.76, context),
       child: Row(
         children: [
-          Expanded(
+          Visibility(
+            visible: provider.visible==2?true:false,
             child: SideMenu(
                 style: SideMenuStyle(
+                  openSideMenuWidth: ResponsiveSize.adjustWidth(0.2, context),
                   hoverColor: const Color(0xffcfe8ed),
                   unselectedIconColor: AppColors.blackColor,
                   selectedColor: const Color(0xffcfe8ed),
-                  unselectedTitleTextStyle: const TextStyle(
+                  unselectedTitleTextStyle:  TextStyle(
+                    fontSize: ResponsiveSize.adjustTextSize(6, context),
                     color: AppColors.blackColor,
                   ),
                   selectedTitleTextStyle:
-                      const TextStyle(color: AppColors.blackColor),
+                       TextStyle(color: AppColors.blackColor,fontSize: ResponsiveSize.adjustTextSize(6, context),),
                   selectedIconColor: AppColors.blackColor,
                 ),
                 items: [
@@ -56,62 +62,84 @@ class _NavBarState extends State<NavBar> {
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
-                              sideMenuController.changePage(index);
-                              navIndex =0;
+                              provider.changeNavIndex(0);
+                              sideMenuController.changePage(provider.navIndex);
                             });
                           },
-                          icon: const Icon(Icons.inbox),
-                          trailing: Text("5521",style: TextStyle(color: navIndex ==0? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          icon:  Icon(Icons.inbox,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("5521",style: TextStyle(color: provider.navIndex ==0? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
                           title: 'Inbox'),
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
                               sideMenuController.changePage(index);
-                              navIndex =1;
+                              provider.changeNavIndex(1);
                             });
                           },
-                          icon: const Icon(Icons.mail_lock),
-                          trailing: Text("30",style: TextStyle(color: navIndex ==1? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          icon:  Icon(Icons.mail_lock,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("30",style: TextStyle(color: provider.navIndex ==1? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
                           title: 'Junk Email'),
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
                               sideMenuController.changePage(index);
-                              navIndex =2;
+                              provider.changeNavIndex(2);
+
                             });
                           },
-                          icon: const Icon(Icons.drafts),
-                          trailing: Text("31",style: TextStyle(color: navIndex ==2? AppColors.darkPetrolColor:Colors.blueGrey),),
-                          title: 'Darfts'),
+                          icon:  Icon(Icons.drafts,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("31",style: TextStyle(color: provider.navIndex ==2? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
+                          title: 'Drafts'),
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
                               sideMenuController.changePage(index);
-                              navIndex =3;
+                              provider.changeNavIndex(3);
+
                             });
                           },
-                          icon: const Icon(Icons.send),
-                          trailing: Text("1",style: TextStyle(color: navIndex ==3? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          icon:  Icon(Icons.send,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("1",style: TextStyle(color: provider.navIndex ==3? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
                           title: 'Send Items'),
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
                               sideMenuController.changePage(index);
-                              navIndex =4;
+                              provider.changeNavIndex(4);
+
                             });
                           },
-                          icon: const Icon(Icons.delete),
-                          trailing: Text("",style: TextStyle(color: navIndex ==4? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          icon:  Icon(Icons.delete,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("",style: TextStyle(color: provider.navIndex ==4? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
                           title: 'Deleted Items'),
                       SideMenuItem(
                           onTap: (index, sideMenuController) {
                             setState(() {
                               sideMenuController.changePage(index);
-                              navIndex =5;
+                              provider.changeNavIndex(5);
+
                             });
                           },
-                          icon: const Icon(Icons.archive),
-                          trailing: Text("",style: TextStyle(color: navIndex ==5? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          icon:  Icon(Icons.archive,size: ResponsiveSize.adjustTextSize(6, context),),
+                          trailing: Padding(
+                            padding:  EdgeInsets.only(right: ResponsiveSize.adjustWidth(0.01, context)),
+                            child: Text("",style: TextStyle(color: provider.navIndex ==5? AppColors.darkPetrolColor:Colors.blueGrey),),
+                          ),
                           title: 'Archive'),
                     ],
                   ),
@@ -120,16 +148,16 @@ class _NavBarState extends State<NavBar> {
           ),
           SizedBox(width: ResponsiveSize.adjustWidth(0.01, context),),
           Expanded(
-            flex: 3,
             child: PageView(
+              physics: const ClampingScrollPhysics(),
               controller: pageController,
-              children:  [
+              children:   const [
                 Inbox(),
-                const JunkMails(),
-                const Drafts(),
-                const SendItems(),
-                const DeletedItems(),
-                const Archive()
+                JunkMails(),
+                Drafts(),
+                SendItems(),
+                DeletedItems(),
+                Archive()
               ],
             ),
           )
